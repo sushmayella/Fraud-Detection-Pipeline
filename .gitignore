@@ -1,0 +1,81 @@
+# Maven
+target/
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# Gradle (not used, but just in case)
+.gradle/
+build/
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+.factorypath
+.eclipse
+.apt_generated/
+
+# Spring Boot
+*.log
+logs/
+application-local.yml
+application-local.properties
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python (ml-scorer)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Data / models (don't commit trained models or raw datasets)
+*.pkl
+*.joblib
+*.parquet
+data/raw/
+data/processed/
+!data/README.md
+
+# Docker
+docker-compose.override.yml
+
+# Secrets — never commit
+.env
+.env.local
+*.key
+*.pem
+secrets/
+
+# Avro generated sources
+shared/events/target/generated-sources/
+
+# JaCoCo
+jacoco.exec
+*.exec
+
+# Node (in case any tooling sneaks in)
+node_modules/
+
+# macOS
+.AppleDouble
+.LSOverride
+._*
+
+# tmp / scratch
+tmp/
+scratch/
