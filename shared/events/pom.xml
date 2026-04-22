@@ -36,6 +36,9 @@
                             <sourceDirectory>${project.basedir}/src/main/avro</sourceDirectory>
                             <outputDirectory>${project.build.directory}/generated-sources/avro</outputDirectory>
                             <stringType>String</stringType>
+                            <imports>
+                                <import>${project.basedir}/src/main/avro/Transaction.avsc</import>
+                            </imports>
                         </configuration>
                     </execution>
                 </executions>
