@@ -1,0 +1,27 @@
+{
+  "namespace": "com.fraudplatform.events",
+  "type": "record",
+  "name": "Decision",
+  "doc": "Final fraud decision combining rule verdicts and ML score.",
+  "fields": [
+    {"name": "transactionId", "type": "string"},
+    {"name": "userId", "type": "string"},
+    {"name": "outcome", "type": {
+      "type": "enum",
+      "name": "Outcome",
+      "symbols": ["APPROVE", "REVIEW", "BLOCK"]
+    }},
+    {"name": "mlProbability", "type": ["null", "double"], "default": null},
+    {"name": "mlTimeout", "type": "boolean", "default": false},
+    {"name": "triggeredRules", "type": {"type": "array", "items": {
+      "type": "record",
+      "name": "RuleTrace",
+      "fields": [
+        {"name": "ruleId", "type": "string"},
+        {"name": "verdict", "type": "string"},
+        {"name": "explanation", "type": "string"}
+      ]
+    }}, "default": []},
+    {"name": "decidedAt", "type": {"type": "long", "logicalType": "timestamp-millis"}}
+  ]
+}

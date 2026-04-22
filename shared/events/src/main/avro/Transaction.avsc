@@ -1,0 +1,21 @@
+{
+  "namespace": "com.fraudplatform.events",
+  "type": "record",
+  "name": "Transaction",
+  "doc": "A raw transaction as submitted by the ingestion API.",
+  "fields": [
+    {"name": "transactionId", "type": "string", "doc": "Unique id (UUID) assigned at ingestion."},
+    {"name": "userId", "type": "string"},
+    {"name": "cardFingerprint", "type": "string", "doc": "Tokenized card identifier (never the PAN)."},
+    {"name": "amount", "type": "double"},
+    {"name": "currency", "type": "string", "doc": "ISO 4217 code."},
+    {"name": "merchantId", "type": "string"},
+    {"name": "merchantCategoryCode", "type": "int"},
+    {"name": "country", "type": "string", "doc": "ISO 3166-1 alpha-2 code."},
+    {"name": "latitude", "type": ["null", "double"], "default": null},
+    {"name": "longitude", "type": ["null", "double"], "default": null},
+    {"name": "deviceId", "type": ["null", "string"], "default": null},
+    {"name": "timestamp", "type": {"type": "long", "logicalType": "timestamp-millis"}},
+    {"name": "ingestedAt", "type": {"type": "long", "logicalType": "timestamp-millis"}}
+  ]
+}
