@@ -10,7 +10,7 @@
 
 ## What this is
 
-A production-style fraud detection system built around Kafka, Kafka Streams, and a hybrid rules-plus-ML decisioning model. It's designed as a learning and portfolio project — the architecture mirrors patterns you'd find at payments companies like Stripe, Visa, or Capital One, scaled down to fit on a developer laptop via Docker Compose.
+A production-style fraud detection system built around Kafka, Kafka Streams, and a hybrid rules-plus-ML decisioning model. It's designed as a learning and portfolio project, the architecture mirrors patterns you'd find at payments companies like Stripe, Visa, or Capital One, scaled down to fit on a developer laptop via Docker Compose.
 
 **Core ideas:**
 
