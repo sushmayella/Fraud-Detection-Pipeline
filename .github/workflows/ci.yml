@@ -29,16 +29,10 @@ jobs:
 
       - name: Verify formatting (Spotless)
         run: mvn -B spotless:check
-        continue-on-error: true   # informational for now; flip to false once baselined
+        continue-on-error: true
 
-      - name: Compile
-        run: mvn -B -pl shared/events,services/ingestion-api -am compile
-
-      - name: Unit tests
-        run: mvn -B -pl shared/events,services/ingestion-api -am test
-
-      - name: Integration tests (Testcontainers)
-        run: mvn -B -pl services/ingestion-api verify -DskipUnitTests=false
+      - name: Build and run all tests
+        run: mvn -B -pl services/ingestion-api -am verify
 
       - name: Upload JaCoCo coverage
         uses: actions/upload-artifact@v4
