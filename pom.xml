@@ -15,6 +15,7 @@
     <modules>
         <module>shared/events</module>
         <module>services/ingestion-api</module>
+        <module>services/feature-extractor</module>
     </modules>
 
     <properties>
