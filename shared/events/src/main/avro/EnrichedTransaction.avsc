@@ -9,13 +9,13 @@
       "type": "record",
       "name": "Features",
       "fields": [
-        {"name": "velocity1m", "type": "int", "doc": "Transaction count in last 1 minute for this card."},
-        {"name": "velocity1h", "type": "int", "doc": "Transaction count in last 1 hour for this card."},
-        {"name": "amountZScore", "type": "double", "doc": "Z-score of amount vs user's 30d baseline."},
-        {"name": "geoDeltaKm", "type": ["null", "double"], "default": null, "doc": "Distance from last known location."},
-        {"name": "isNewDevice", "type": "boolean", "default": false},
-        {"name": "merchantCategoryRarity", "type": "double", "doc": "1 / frequency of this MCC for this user."},
-        {"name": "userAgeDays", "type": "int", "doc": "Days since user's first transaction."}
+        {"name": "velocity1m", "type": "int", "doc": "Transactions in the last 1 minute for this card, counting the current transaction."},
+        {"name": "velocity1h", "type": "int", "doc": "Transactions in the last 1 hour for this card, counting the current transaction."},
+        {"name": "amountZScore", "type": ["null", "double"], "default": null, "doc": "Populated by the baseline processor (future PR)."},
+        {"name": "geoDeltaKm", "type": ["null", "double"], "default": null, "doc": "Populated by the geo processor (future PR)."},
+        {"name": "isNewDevice", "type": ["null", "boolean"], "default": null, "doc": "Populated by the device processor (future PR)."},
+        {"name": "merchantCategoryRarity", "type": ["null", "double"], "default": null},
+        {"name": "userAgeDays", "type": ["null", "int"], "default": null}
       ]
     }},
     {"name": "enrichedAt", "type": {"type": "long", "logicalType": "timestamp-millis"}}
