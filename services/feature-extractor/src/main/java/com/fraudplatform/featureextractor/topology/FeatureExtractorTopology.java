@@ -21,6 +21,7 @@ import org.apache.kafka.streams.processor.api.Processor;
 import org.apache.kafka.streams.processor.api.ProcessorContext;
 import org.apache.kafka.streams.processor.api.Record;
 import org.apache.kafka.streams.state.KeyValueStore;
+import org.apache.kafka.streams.state.ValueAndTimestamp;
 import org.apache.kafka.streams.state.WindowStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,15 +153,15 @@ public final class FeatureExtractorTopology {
   static final class EnrichmentProcessor implements Processor<String, Transaction, String, EnrichedTransaction> {
 
     private ProcessorContext<String, EnrichedTransaction> context;
-    private WindowStore<String, Long> velocity1mStore;
-    private WindowStore<String, Long> velocity1hStore;
+    private WindowStore<String, ValueAndTimestamp<Long>> velocity1mStore;
+    private WindowStore<String, ValueAndTimestamp<Long>> velocity1hStore;
 
     @Override
     @SuppressWarnings("unchecked")
     public void init(ProcessorContext<String, EnrichedTransaction> context) {
       this.context = context;
-      this.velocity1mStore = (WindowStore<String, Long>) context.getStateStore(VELOCITY_1M_STORE);
-      this.velocity1hStore = (WindowStore<String, Long>) context.getStateStore(VELOCITY_1H_STORE);
+      this.velocity1mStore = (WindowStore<String, ValueAndTimestamp<Long>>) context.getStateStore(VELOCITY_1M_STORE);
+      this.velocity1hStore = (WindowStore<String, ValueAndTimestamp<Long>>) context.getStateStore(VELOCITY_1H_STORE);
     }
 
     @Override
@@ -211,14 +212,14 @@ public final class FeatureExtractorTopology {
      * for generality.
      */
     private int lookupCount(
-        WindowStore<String, Long> store, String card, Instant eventTime, Duration windowSize) {
+        WindowStore<String, ValueAndTimestamp<Long>> store, String card, Instant eventTime, Duration windowSize) {
       // The range [eventTime - windowSize + 1ms, eventTime] covers exactly the current window.
       Instant from = eventTime.minus(windowSize).plusMillis(1);
       Instant to = eventTime;
       try (var iter = store.fetch(card, from, to)) {
         long total = 0;
         while (iter.hasNext()) {
-          total += iter.next().value;
+          total += iter.next().value.value();
         }
         return (int) Math.min(total, Integer.MAX_VALUE);
       }
