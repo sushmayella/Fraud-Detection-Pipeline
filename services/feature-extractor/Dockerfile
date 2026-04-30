@@ -6,6 +6,7 @@ WORKDIR /workspace
 COPY pom.xml .
 COPY shared/events/pom.xml shared/events/
 COPY services/feature-extractor/pom.xml services/feature-extractor/
+COPY services/ingestion-api/pom.xml services/ingestion-api/
 RUN mvn -pl shared/events,services/feature-extractor -am dependency:go-offline -B -q || true
 
 COPY shared/events shared/events
