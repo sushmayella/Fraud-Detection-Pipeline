@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: feature-extractor
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
+
+schema:
+  registry:
+    url: ${SCHEMA_REGISTRY_URL:http://localhost:8081}
+
+kafka:
+  streams:
+    application-id: feature-extractor
+    state-dir: ${KAFKA_STREAMS_STATE_DIR:/tmp/kafka-streams/feature-extractor}
+    num-threads: ${KAFKA_STREAMS_THREADS:2}
+
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  metrics:
+    distribution:
+      percentiles-histogram:
+        kafka.streams.process.latency: true
+
+logging:
+  level:
+    root: INFO
+    com.fraudplatform: DEBUG
+    # Streams is verbose by default; quiet its internals unless debugging.
+    org.apache.kafka.streams: WARN
+    org.apache.kafka.clients: WARN
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  kafka:
+    bootstrap-servers: kafka:9092
+
+schema:
+  registry:
+    url: http://schema-registry:8081

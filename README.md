@@ -92,7 +92,7 @@ This repo is being built out incrementally. The roadmap is honest about what's s
 
 ### In progress (phase 2)
 
-- [ ] **Feature Extractor** — Kafka Streams topology for velocity, z-score, and geo-delta features
+- [x] **Feature Extractor (velocity)** — Kafka Streams topology with windowed velocity counts; baseline, geo, device features in follow-up PRs
 - [ ] **Rule Engine** — YAML DSL evaluator ([ADR-0003](./docs/adr/0003-rule-engine-dsl.md))
 - [ ] **ML Scorer** — Python FastAPI service with logistic regression on IEEE-CIS dataset
 - [ ] **Decision Engine** — Kafka Streams windowed join, Postgres persistence

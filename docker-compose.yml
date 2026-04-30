@@ -119,6 +119,24 @@ services:
       SCHEMA_REGISTRY_URL: http://schema-registry:8081
       SPRING_PROFILES_ACTIVE: docker
 
+
+  feature-extractor:
+    build:
+      context: .
+      dockerfile: services/feature-extractor/Dockerfile
+    depends_on:
+      kafka:
+        condition: service_healthy
+      schema-registry:
+        condition: service_started
+      ingestion-api:
+        condition: service_started
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      KAFKA_STREAMS_STATE_DIR: /tmp/kafka-streams/feature-extractor
+      SPRING_PROFILES_ACTIVE: docker
+
 volumes:
   postgres_data:
   redis_data:

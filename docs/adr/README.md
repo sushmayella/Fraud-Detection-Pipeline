@@ -9,9 +9,10 @@ This directory contains the ADRs for the Fraud Detection Platform. ADRs document
 | 0001 | [Kafka over RabbitMQ as the event backbone](./0001-kafka-over-rabbitmq.md) | Accepted |
 | 0002 | [Kafka Streams over Flink for stream processing](./0002-kafka-streams-over-flink.md) | Accepted |
 | 0003 | [In-house rule DSL over Drools](./0003-rule-engine-dsl.md)          | Accepted |
-| 0004 | Redis feature cache with tiered TTLs *(planned)*                    | —        |
-| 0005 | Hybrid ML + rules decisioning strategy *(planned)*                  | —        |
-| 0006 | gRPC between decision engine and ML scorer *(planned)*              | —        |
+| 0004 | [Event-time windowing for velocity features](./0004-event-time-windowing.md) | Accepted |
+| 0005 | Redis feature cache with tiered TTLs *(planned)*                    | —        |
+| 0006 | Hybrid ML + rules decisioning strategy *(planned)*                  | —        |
+| 0007 | gRPC between decision engine and ML scorer *(planned)*              | —        |
 
 ## Writing a new ADR
 
