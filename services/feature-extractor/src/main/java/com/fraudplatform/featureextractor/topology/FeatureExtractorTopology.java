@@ -10,6 +10,7 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
@@ -111,12 +112,12 @@ public final class FeatureExtractorTopology {
     // by (card, window) key. We keep the state stores around after counting so the enrichment
     // processor can read them.
     byCard
-        .groupByKey()
+        .groupByKey(Grouped.with(Serdes.String(), transactionSerde))
         .windowedBy(TimeWindows.ofSizeAndGrace(WINDOW_1M, GRACE))
         .count(Materialized.<String, Long, WindowStore<org.apache.kafka.common.utils.Bytes, byte[]>>as(VELOCITY_1M_STORE));
 
     byCard
-        .groupByKey()
+        .groupByKey(Grouped.with(Serdes.String(), transactionSerde))
         .windowedBy(TimeWindows.ofSizeAndGrace(WINDOW_1H, GRACE))
         .count(Materialized.<String, Long, WindowStore<org.apache.kafka.common.utils.Bytes, byte[]>>as(VELOCITY_1H_STORE));
 

@@ -73,6 +73,9 @@ class FeatureExtractorTopologyTest {
     props.put(StreamsConfig.APPLICATION_ID_CONFIG, "feature-extractor-test");
     props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:9092");
     props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.StringSerde.class);
+    // Default value serde is required for any internal topic Kafka Streams creates
+    // (repartition topics, changelog topics) where we did not provide an explicit Serde.
+    props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde.class);
     props.put(AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, SCHEMA_REGISTRY_URL);
 
     driver = new TopologyTestDriver(topology, props);
