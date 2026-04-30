@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
 
       - name: Build and run all tests
-        run: mvn -B -pl services/ingestion-api -am verify
+        run: mvn -B -pl services/ingestion-api,services/feature-extractor -am verify
 
       - name: Upload JaCoCo coverage
         uses: actions/upload-artifact@v4
