@@ -14,6 +14,7 @@ import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
+import org.apache.kafka.streams.kstream.Repartitioned;
 import org.apache.kafka.streams.kstream.TimeWindows;
 import org.apache.kafka.streams.kstream.Windowed;
 import org.apache.kafka.streams.processor.api.Processor;
@@ -104,9 +105,13 @@ public final class FeatureExtractorTopology {
         builder.stream(SOURCE_TOPIC, Consumed.with(Serdes.String(), transactionSerde));
 
     KStream<String, Transaction> byCard =
-        byTransactionId.selectKey(
-            (txnId, txn) -> txn.getCardFingerprint().toString(),
-            org.apache.kafka.streams.kstream.Named.as("rekey-by-card"));
+        byTransactionId
+            .selectKey(
+                (txnId, txn) -> txn.getCardFingerprint().toString(),
+                org.apache.kafka.streams.kstream.Named.as("rekey-by-card"))
+            .repartition(
+                Repartitioned.<String, Transaction>with(Serdes.String(), transactionSerde)
+                    .withName("by-card"));
 
     // Two windowed counts. Each call to count() materializes a WindowStore that we can look up
     // by (card, window) key. We keep the state stores around after counting so the enrichment
